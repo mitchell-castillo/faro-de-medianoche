@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {STORAGE_KEY,emptyProgress,normalizeProgress,readProgress,saveProgress,recordWin,unlockedLevel} from '../progress.js';
+import {makeRun,step,aim} from '../engine.js';
+function won(){const run=makeRun();for(let i=0;i<2000&&run.status==='playing';i++){if(run.boats[0])aim(run,run.boats[0].angle);step(run,.05);}return run;}
+test('unique namespace never writes to another game',()=>{const writes=[];saveProgress(emptyProgress(),{setItem:(...args)=>writes.push(args)});assert.equal(writes.length,1);assert.equal(writes[0][0],STORAGE_KEY);assert.ok(STORAGE_KEY.includes('faro-de-medianoche'));});
+test('wins unlock next night and best marks never regress',()=>{const p=emptyProgress(),r=won();recordWin(p,r);assert.equal(unlockedLevel(p),1);const score=p.completed[0].bestScore;recordWin(p,{...r,score:50,missed:2});assert.equal(p.completed[0].bestScore,score);assert.equal(p.completed[0].stars,3);});
+test('blocked browser storage allows play in memory',()=>{const store={getItem(){throw Error();},setItem(){throw Error();}};assert.equal(readProgress(store).available,false);assert.equal(saveProgress(emptyProgress(),store),false);});
+test('malformed data recovers without destroying foreign keys',()=>{assert.deepEqual(readProgress({getItem:()=>'{bad'}).progress,emptyProgress());assert.deepEqual(normalizeProgress({version:999}),emptyProgress());assert.deepEqual(normalizeProgress({version:1,currentLevel:99,completed:{0:{bestScore:-1,stars:3},5:{bestScore:500,stars:3}}}),emptyProgress());});
+test('run and records round trip safely',()=>{const p=emptyProgress(),r=won();recordWin(p,r);p.run=r;let saved;assert.ok(saveProgress(p,{setItem:(k,v)=>saved=v}));const restored=readProgress({getItem:()=>saved}).progress;assert.equal(restored.run.status,'won');assert.equal(restored.completed[0].stars,3);assert.equal(restored.currentLevel,1);});
+test('a manually supplied locked-night save is rejected',()=>{const p=normalizeProgress({...emptyProgress(),run:makeRun(4),currentLevel:4});assert.equal(p.run,null);assert.equal(p.currentLevel,0);});

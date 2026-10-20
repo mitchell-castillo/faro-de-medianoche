@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#102f3b">
+  <meta name="description" content="Un faro, un mar de pequeñas velas y tu luz. Guía los barcos a puerto en cinco noches de un arcade original, gratis y sin cuentas.">
+  <title>Faro de Medianoche · Un juego cada día</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="page">
+    <header class="topbar"><a href="https://mitchell-castillo.github.io/daily-games/" class="back-link">← Volver a la colección</a><span class="edition">JUEGO 002 <i></i> ARCADE</span></header>
+    <main>
+      <div class="title-row"><div><p class="eyebrow">PARA QUIENES SIGUEN ENCENDIENDO LA LUZ</p><h1>Faro de <em>Medianoche</em><span class="title-star" aria-hidden="true">✷</span></h1></div><p class="intro">El mar es enorme.<br>Tu luz puede cambiarlo todo.</p></div>
+      <div class="game-layout">
+        <section class="sea-panel" aria-label="Zona de juego">
+          <div class="dashboard"><div><span class="stat-label" id="night-label">NOCHE 01 / 05</span><strong id="night-name">Primer destello</strong></div><div class="stats"><div><span class="stat-label">A SALVO</span><strong id="rescued">0 <small>/ 4</small></strong></div><div><span class="stat-label">MARGEN</span><strong id="lives" aria-label="Puedes perder 2 barcos">● ● ●</strong></div><div><span class="stat-label">PUNTOS</span><strong id="score">0000</strong></div></div></div>
+          <div class="sea-wrap" id="sea-wrap">
+            <canvas id="sea" width="640" height="640" tabindex="0" aria-label="Mar de juego. Usa flecha izquierda y derecha o A y D para orientar el faro. También puedes tocar o arrastrar hacia los barcos.">Necesitas un navegador compatible con canvas para jugar.</canvas>
+            <div class="compass" aria-hidden="true"><span>N</span><span>E</span><span>S</span><span>O</span></div>
+            <div class="sea-badge"><span class="live-dot"></span><span id="sea-caption">COSTA DE LA LUNA</span></div>
+            <div class="overlay" id="overlay">
+              <div class="overlay-card"><span class="overlay-icon" id="overlay-icon" aria-hidden="true">✷</span><p class="eyebrow" id="overlay-kicker">TU TURNO AL FRENTE DEL FARO</p><h2 id="overlay-title">Una luz.<br>Muchos caminos a casa.</h2><p id="overlay-copy">Apunta a un barco y mantén la luz sobre él hasta llenar su círculo. Sálvalo antes de que toque las rocas.</p><button class="primary" id="start-button">Encender el faro <span>↗</span></button><button class="text-button" id="secondary-button" hidden>Repetir noche</button></div>
+            </div>
+          </div>
+          <div class="game-toolbar"><div class="steering" aria-label="Controles táctiles"><button id="turn-left" aria-label="Girar luz a la izquierda">↶ <span>A / ←</span></button><button id="turn-right" aria-label="Girar luz a la derecha">↷ <span>D / →</span></button></div><span id="feedback" role="status" aria-live="polite">Tu primera guardia está por empezar.</span><button id="pause-button" class="pause-button" disabled>Pausa <span>Ⅱ</span></button></div>
+        </section>
+        <aside class="sidebar">
+          <section class="howto"><div class="section-number">01 <span>EL OFICIO DE CUIDAR</span></div><h2>Haz que lleguen<br>a casa.</h2><ol><li><span class="step-symbol">↗</span><div><strong>Orienta tu luz.</strong><p>Toca el mar o arrastra hacia un barco. En teclado, usa ← → o A / D.</p></div></li><li><span class="step-symbol">◌</span><div><strong>Quédate un instante.</strong><p>Llena el aro del barco para guiarlo a puerto. Los más cercanos a las rocas necesitan tu ayuda primero.</p></div></li><li><span class="step-symbol">✦</span><div><strong>No dejes a nadie atrás.</strong><p>Supera la meta de cada noche. Al tercer barco perdido, vuelve a intentarlo.</p></div></li></ol><div class="key-tip">ESPACIO o P para pausar · sin límite de intentos</div></section>
+          <section class="journey"><div class="section-number">02 <span>TU BITÁCORA</span></div><div class="journey-heading"><h2>Cinco noches.</h2><span id="completion">0 / 5</span></div><div id="night-list" class="night-list"></div><p class="save-status" id="save-status">Avance guardado en este navegador.</p></section>
+        </aside>
+      </div>
+      <footer><p><span aria-hidden="true">✷</span> Pequeños juegos. Nuevos mundos.</p><div><span>Sin cuentas. Sin rastreo.</span><a href="https://github.com/mitchell-castillo/faro-de-medianoche" target="_blank" rel="noopener">Ver código ↗</a></div></footer>
+    </main>
+  </div>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

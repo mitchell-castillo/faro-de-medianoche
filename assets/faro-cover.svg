@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 680" fill="none">
+<defs><radialGradient id="sea" cx="50%" cy="47%" r="70%"><stop stop-color="#2b5963"/><stop offset=".6" stop-color="#153b49"/><stop offset="1" stop-color="#0b2734"/></radialGradient><linearGradient id="light" x1="451" y1="305" x2="835" y2="90" gradientUnits="userSpaceOnUse"><stop stop-color="#fff1b6" stop-opacity=".68"/><stop offset="1" stop-color="#f9d78b" stop-opacity="0"/></linearGradient><g id="boat"><path d="M-19 9 0 23 19 9 13-16 0-29-13-16Z" fill="#d1dfd4"/><path d="M-2-22V5H-20Z" fill="#fff2cf"/><path d="M3-18V8H19Z" fill="#83aaa0"/><path d="M-5 12H5V18H-5Z" fill="#d29165"/><path d="M-19 24Q-30 42-24 58M19 24Q30 42 24 58" stroke="#70919b" stroke-opacity=".6" stroke-width="2"/></g></defs>
+<path fill="url(#sea)" d="M0 0h960v680H0z"/>
+<g stroke="#87aaae" stroke-opacity=".16"><circle cx="462" cy="345" r="135"/><circle cx="462" cy="345" r="235"/><circle cx="462" cy="345" r="335"/><path d="M90 119q15-8 30 0m590 439q15-8 30 0M809 303q15-8 30 0M115 493q15-8 30 0M268 570q15-8 30 0M700 106q15-8 30 0M751 437q15-8 30 0M320 106q15-8 30 0M188 287q15-8 30 0M600 562q15-8 30 0M551 135q15-8 30 0M304 445q15-8 30 0M140 600q15-8 30 0M875 540q15-8 30 0M100 363q15-8 30 0M856 140q15-8 30 0" stroke-width="2"/></g>
+<circle cx="462" cy="345" r="116" stroke="#b5a98a" stroke-opacity=".5" stroke-dasharray="4 12"/>
+<path d="M462 310 903-28 960 297Z" fill="url(#light)"/>
+<path d="M462 310 903-28M462 310 960 297" stroke="#f4d6a1" stroke-opacity=".13"/>
+<ellipse cx="468" cy="392" rx="99" ry="59" fill="#142f38" stroke="#4d7177" stroke-width="2"/><ellipse cx="468" cy="386" rx="81" ry="49" fill="#3e5b53"/>
+<g fill="#566a60" stroke="#1b3840" stroke-width="3"><path d="m373 377 20-17 20 7 6 25-25 13-25-8Z"/><path d="m502 416 25-13 26 9 1 20-29 14-25-8Z"/><path d="m388 411 16-14 30 6 7 24-26 12-27-10Z"/><path d="m538 366 19-10 21 17-2 29-25 8-18-21Z"/></g>
+<path d="m439 324-15 87h77l-16-87Z" fill="#e8dfbe"/><path d="m485 324 16 87 16-14-15-82Z" fill="#a6b3a0"/><path d="m433 352-5 24h68l-4-24Z" fill="#dc905f"/><path d="m492 352 4 24 16-12-4-24Z" fill="#a26647"/><path d="M456 385h14v26h-14Z" fill="#24454c"/>
+<path d="M437 290h51v34h-51Z" fill="#f5d895"/><path d="M433 322h59v8h-59Z" fill="#5f786d"/><path d="m426 291 36-27 37 27Z" fill="#df9866"/><path d="M459 292h7v30h-7Z" fill="#26464c"/><circle cx="462" cy="309" r="10" fill="#fff2c1"/>
+<g transform="translate(708 188) rotate(50)"><use href="#boat"/></g><circle cx="708" cy="188" r="34" stroke="#9abbb5" stroke-opacity=".4" stroke-width="2"/><path d="M708 154a34 34 0 1 1-30 50" stroke="#f6d98e" stroke-width="4" stroke-linecap="round"/>
+<g transform="translate(237 220) rotate(-45)"><use href="#boat"/></g><g transform="translate(670 507) rotate(137)"><use href="#boat"/></g>
+<circle cx="806" cy="91" r="23" fill="#eddfb3"/><circle cx="817" cy="82" r="21" fill="#153a47"/>
+<g fill="#98b0ad" font-family="Arial,sans-serif" font-size="12" letter-spacing="3"><text x="456" y="52">N</text><text x="903" y="351">E</text><text x="456" y="645">S</text><text x="43" y="351">O</text></g>
+<g fill="#b9c4b6" font-family="Arial,sans-serif" font-size="11" letter-spacing="2"><text x="51" y="620">COSTA DE LA LUNA</text></g><circle cx="38" cy="616" r="3" fill="#e7bb7d"/>
+</svg>

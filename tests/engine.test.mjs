@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { nights, makeRun, step, aim, turn, angleDistance, starsFor, restoreRun, TAU } from '../engine.js';
+const advance = (run, seconds, fn=()=>{}) => {for(let i=0;i<seconds*60 && run.status==='playing';i++){fn(run);step(run,1/60);}return run;};
+function rescuePilot(run){const urgent=[...run.boats].sort((a,b)=>a.radius-b.radius)[0];if(urgent)aim(run,urgent.angle);}
+test('five distinct progressive nights, no impossible quotas',()=>{assert.equal(nights.length,5);for(const c of nights){assert.equal(c.total-c.target,2);assert.ok(c.interval>c.chargeTime);assert.ok(c.target>0);}assert.ok(nights[4].speed>nights[0].speed);});
+test('beam works across the angle wrap and keyboard rotation wraps safely',()=>{assert.ok(angleDistance(.01,TAU-.01)<.03);const r=makeRun();turn(r,-1,100);assert.ok(r.beamAngle>=0&&r.beamAngle<TAU);aim(r,NaN);assert.ok(Number.isFinite(r.beamAngle));});
+test('boats spawn predictably and illumination charges them',()=>{const r=makeRun();advance(r,1);assert.equal(r.spawned,1);assert.ok(r.boats[0].charge>0);advance(r,1);assert.equal(r.rescued,1);assert.equal(r.score,100);assert.equal(r.boats.length,0);});
+test('charge fades gently when the beam leaves',()=>{const r=makeRun();advance(r,1);const old=r.boats[0].charge;aim(r,Math.PI/2);step(r,.1);assert.ok(r.boats[0].charge<old);assert.ok(r.boats[0].charge>0);});
+test('third missed boat loses the night and stops the simulation',()=>{const r=makeRun(4);advance(r,60,run=>aim(run,run.elapsed*100));assert.equal(r.status,'lost');assert.equal(r.missed,3);const elapsed=r.elapsed;step(r,1);assert.equal(r.elapsed,elapsed);assert.equal(starsFor(r),0);});
+for(let level=0;level<nights.length;level++)test(`night ${level+1} is winnable without losing a boat`,()=>{const r=advance(makeRun(level),90,rescuePilot);assert.equal(r.status,'won');assert.equal(r.rescued,nights[level].target);assert.equal(r.missed,0);assert.equal(starsFor(r),3);assert.ok(r.score>r.rescued*100);assert.ok(restoreRun(JSON.parse(JSON.stringify(r))));});
+test('simulation and saves are deterministic',()=>{const a=advance(makeRun(2),7,rescuePilot);const b=restoreRun(JSON.parse(JSON.stringify(a)));assert.ok(b);advance(a,5,rescuePilot);advance(b,5,rescuePilot);assert.deepEqual(b,a);});
+test('corrupt, locked or inconsistent saved simulations are rejected',()=>{const r=makeRun();assert.equal(restoreRun({}),null);assert.equal(restoreRun({...r,level:9}),null);assert.equal(restoreRun({...r,score:Infinity}),null);assert.equal(restoreRun({...r,status:'won'}),null);assert.equal(restoreRun({...r,rescued:1}),null);assert.equal(restoreRun({...r,boats:[null]}),null);});
+test('bad delta values cannot corrupt play and huge deltas are bounded',()=>{const r=makeRun();step(r,NaN);step(r,-10);assert.equal(r.elapsed,0);step(r,500);assert.ok(r.elapsed<=.251);});

@@ -1,0 +1,12 @@
+{
+  "name": "faro-de-medianoche",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Arcade original de faros y rescates, sin dependencias ni servidor.",
+  "scripts": {
+    "test": "node --test tests/*.test.mjs",
+    "check": "node --check app.js && node --check engine.js && node --check progress.js && npm test",
+    "start": "python3 -m http.server 8080"
+  }
+}
