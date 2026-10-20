@@ -53,7 +53,7 @@ function renderOverlay() {
     primary.textContent = 'Volver a intentarlo ↗'; primary.onclick = () => startFresh(run.level);
   } else if (mode === 'paused') {
     kicker.textContent = 'LA COSTA PUEDE ESPERAR'; title.textContent = 'Tu guardia está en pausa.';
-    copy.textContent = `${run.rescued} barcos a salvo. Retoma justo donde lo dejaste, sin perder tiempo mientras estás fuera.`;
+    copy.textContent = `${run.rescued} ${run.rescued === 1 ? 'barco' : 'barcos'} a salvo. Retoma justo donde lo dejaste, sin perder tiempo mientras estás fuera.`;
     primary.textContent = 'Continuar la noche ↗'; primary.onclick = resume;
     secondary.hidden = false; secondary.textContent = 'Reiniciar esta noche'; secondary.onclick = () => startFresh(run.level);
   } else {
@@ -143,4 +143,8 @@ function tick(now) {
   }
   effects=effects.map(e=>({...e,life:e.life-dt})).filter(e=>e.life>0);draw();requestAnimationFrame(tick);
 }
-updateHUD();renderNights();renderOverlay();storageLabel();requestAnimationFrame(tick);
+updateHUD();renderNights();renderOverlay();storageLabel();
+if (mode === 'paused') feedback('En pausa. Retoma justo donde lo dejaste.');
+else if (mode === 'won') feedback('Guardia completada. Tu marca está guardada.');
+else if (mode === 'lost') feedback('Puedes volver a intentarlo las veces que quieras.');
+requestAnimationFrame(tick);
