@@ -12,3 +12,7 @@ for(let level=0;level<nights.length;level++)test(`night ${level+1} is winnable w
 test('simulation and saves are deterministic',()=>{const a=advance(makeRun(2),7,rescuePilot);const b=restoreRun(JSON.parse(JSON.stringify(a)));assert.ok(b);advance(a,5,rescuePilot);advance(b,5,rescuePilot);assert.deepEqual(b,a);});
 test('corrupt, locked or inconsistent saved simulations are rejected',()=>{const r=makeRun();assert.equal(restoreRun({}),null);assert.equal(restoreRun({...r,level:9}),null);assert.equal(restoreRun({...r,score:Infinity}),null);assert.equal(restoreRun({...r,status:'won'}),null);assert.equal(restoreRun({...r,rescued:1}),null);assert.equal(restoreRun({...r,boats:[null]}),null);});
 test('bad delta values cannot corrupt play and huge deltas are bounded',()=>{const r=makeRun();step(r,NaN);step(r,-10);assert.equal(r.elapsed,0);step(r,500);assert.ok(r.elapsed<=.251);});
+for(let level=0;level<nights.length;level++)test(`night ${level+1} is also winnable with keyboard-speed turning`,()=>{
+  const run=advance(makeRun(level),90,r=>{const boat=[...r.boats].sort((a,b)=>a.radius-b.radius)[0];if(!boat)return;const difference=Math.atan2(Math.sin(boat.angle-r.beamAngle),Math.cos(boat.angle-r.beamAngle));if(Math.abs(difference)>.04)turn(r,Math.sign(difference),1/60);});
+  assert.equal(run.status,'won');assert.equal(run.missed,0);
+});

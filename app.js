@@ -67,7 +67,7 @@ function startFresh(level) { run = makeRun(level); progress.currentLevel = level
 function pause() { if (!active) return; active = false; mode = 'paused'; held.clear(); pointerSteering = 0; persist(); updateHUD(); renderOverlay(); feedback('En pausa. Tu guardia puede esperar.'); $('#start-button').focus({ preventScroll: true }); }
 $('#pause-button').onclick = pause;
 window.addEventListener('keydown', (event) => {
-  if (event.target.closest('button,a,input,textarea,select') && !active) return;
+  if (event.target.closest('button,a,input,textarea,select') && !active && mode !== 'paused') return;
   const key = event.key.toLowerCase();
   if (['arrowleft', 'arrowright', 'a', 'd', ' ', 'p', 'escape'].includes(key)) {
     if (active || mode === 'paused') event.preventDefault();
